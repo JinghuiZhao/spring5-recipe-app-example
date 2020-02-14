@@ -11,7 +11,6 @@ however, may share the same primary key value.
 Only entity objects have primary keys. Instances of other persistable types are always
  stored as part of their containing entity objects and do not have their own separate identity.
  */
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +23,6 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     //The primary key of the first entity object in the database is 1, the primary key of the second entity object is 2, etc
     private Long id;
-
     private String description;
     private Integer prepTime;
     private Integer cookTime;
@@ -69,6 +67,19 @@ public class Recipe {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    // below are the 2 helper method that defines the bidirectional relations
+    public void setNotes(Notes notes){
+        this.notes = notes;
+        notes.setRecipe(this);
+    }
+
+
+    public Recipe addIngredients(Ingredient ingredient){
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+        return this;
     }
 
     public String getDirections() {
@@ -169,10 +180,6 @@ public class Recipe {
 
     public Notes getNotes() {
         return notes;
-    }
-
-    public void setNotes(Notes notes) {
-        this.notes = notes;
     }
 
 
