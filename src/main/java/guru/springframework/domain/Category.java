@@ -1,8 +1,14 @@
 package guru.springframework.domain;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
 @Entity
+@EqualsAndHashCode(exclude = {"recipes"})
 public class Category {
 
     @Id
@@ -18,29 +24,5 @@ public class Category {
 
     //one recipe can belong to multiple categories and vice versa
 
-    public Set<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(Set<Recipe> recipes) {
-        this.recipes = recipes;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
 }

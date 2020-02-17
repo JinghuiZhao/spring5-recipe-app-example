@@ -9,12 +9,19 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/*
+Slf4j helpful logs that will help you understand what errors are being triggered, and what information is being processed.
+ */
 
+@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
     //ContextRefreshedEvent On either initializing or refreshing the ApplicationContext
@@ -30,8 +37,11 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     }
 
     @Override
+    @Transactional
+    //we wouldn't see lazy initialization for many relationships
     public void onApplicationEvent(ContextRefreshedEvent event) {
         recipeRepository.saveAll(getRecipes());
+        log.debug("loading bootstrap data");
     }
 
     // above is the essential part where we return the recipes to the repository

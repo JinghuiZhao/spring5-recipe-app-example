@@ -2,14 +2,16 @@ package guru.springframework.service;
 
 import guru.springframework.domain.Recipe;
 import guru.springframework.repositories.RecipeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService{
-    private final RecipeRepository recipeRepository; // note that this is final!
+    private final RecipeRepository recipeRepository;
 
 
     public RecipeServiceImpl(RecipeRepository recipeRepository) {
@@ -17,8 +19,8 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     public Set<Recipe> getRecipes(){
+        log.debug("I'm in the service");
         Set<Recipe> recipeSet = new HashSet();
-        // below is like a for loop
         recipeRepository.findAll().iterator().forEachRemaining(recipeSet::add);
         return recipeSet;
 
