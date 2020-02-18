@@ -1,0 +1,14 @@
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/bootstrap/RecipeBootstrap.java
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/domain/Ingredient.java
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/service/RecipeServiceImpl.java
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/domain/UnitOfMeasure.java
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/domain/Category.java
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/Spring5RecipeAppApplication.java
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/controllers/IndexController.java
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/repositories/RecipeRepository.java
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/domain/Recipe.java
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/domain/Difficulty.java
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/repositories/UnitOfMeasureRepository.java
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/repositories/CategoryRepository.java
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/domain/Notes.java
+/Users/elainezhao/Desktop/spring5-recipe-app/src/main/java/guru/springframework/service/RecipeService.java
