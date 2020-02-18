@@ -34,6 +34,7 @@ public class RecipeServiceImplTest {
         recipeService = new RecipeServiceImpl(recipeRepository);
     }
 
+
     @Test
     public void getRecipes() {
         Recipe recipe = new Recipe();
