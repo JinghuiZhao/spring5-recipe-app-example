@@ -15,7 +15,7 @@ public class IngredientCommand {
     private Long id;
     private String description;
     private BigDecimal amount;
-    private UnitOfMeasureCommand unitOfMeasure;
-
+    // note set uom since we set the variable name as uom initially in ingredient entity
+    private UnitOfMeasureCommand uom;
 
 }
