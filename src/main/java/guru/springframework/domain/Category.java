@@ -2,10 +2,15 @@ package guru.springframework.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
 
+
+@Setter
+@Getter
 @Data
 @Entity
 @EqualsAndHashCode(exclude = {"recipes"})
@@ -23,6 +28,4 @@ public class Category {
     private Set<Recipe> recipes;
 
     //one recipe can belong to multiple categories and vice versa
-
-
 }

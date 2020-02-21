@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
-
     // now we use the service instead of the repository
     private final RecipeService recipeService;
 
@@ -27,8 +26,5 @@ public class IndexController {
         model.addAttribute("recipes", recipeService.getRecipes());
         log.debug("Getting index page");
         return "index";
-
     }
-
-
 }
