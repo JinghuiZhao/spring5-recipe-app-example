@@ -20,13 +20,15 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    // this is to display show.html, note here we must have @PathVariable instead of Long since this is a path variable
+
+    @GetMapping
     @RequestMapping("/recipe/show/{id}")
     public String showById(@PathVariable String id, Model model){
         model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
         return "recipe/show";
     }
 
+    @GetMapping
     @RequestMapping("recipe/new")
     public String newRecipe(Model model){
         model.addAttribute("recipe", new RecipeCommand());
@@ -43,11 +45,20 @@ public class RecipeController {
     }
 
 
+    @GetMapping
     @RequestMapping("recipe/{id}/update")
     // we return the page same as creating newRecipe page
     public String updateRecipe(@PathVariable Long id, Model model) {
         model.addAttribute("recipe", recipeService.findRecipeCommand(Long.valueOf(id)));
         return "recipe/recipeform";
+    }
+
+    @GetMapping // we only expect get method here
+    @RequestMapping("recipe/{id}/delete")
+    public String deleteRecipe(@PathVariable Long id) {
+        log.debug("deleting" + id);
+        recipeService.deleteById(Long.valueOf(id));
+        return "redirect:/";
     }
 
 }
