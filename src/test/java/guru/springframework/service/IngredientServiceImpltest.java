@@ -62,7 +62,7 @@ public class IngredientServiceImpltest {
         recipe.addIngredients(ingredient3);
 
         Optional<Recipe> recipeOptional = Optional.of(recipe);
-        // we need to amke sure it return recipeOption otherwise  No value present error
+        // make sure it return recipeOptional otherwise no value present error
         when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
 
         IngredientCommand ingredientCommand = ingredientService.findRecipeIdAndIngredientId(1L, 3L);
