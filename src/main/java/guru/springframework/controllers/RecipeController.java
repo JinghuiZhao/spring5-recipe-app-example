@@ -22,7 +22,7 @@ public class RecipeController {
 
 
     @GetMapping
-    @RequestMapping("/recipe/show/{id}")
+    @RequestMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model){
         model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
         return "recipe/show";
@@ -35,7 +35,7 @@ public class RecipeController {
         return "recipe/recipeform";
     }
 
-    // handle post request,@ModelAttribute tell spring to bind form post parameters to recipecommand object
+    // handle post request, @ModelAttribute tell spring to bind form post parameters to recipecommand object
     @PostMapping("recipe")
     public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
         // service returns back a new implementation of the command
@@ -60,5 +60,4 @@ public class RecipeController {
         recipeService.deleteById(Long.valueOf(id));
         return "redirect:/";
     }
-
 }

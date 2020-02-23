@@ -43,7 +43,6 @@ public class RecipeServiceImplTest {
         MockitoAnnotations.initMocks(this);
         recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
-    // why do we need the other 2?
 
 
     @Test

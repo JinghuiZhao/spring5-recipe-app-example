@@ -67,10 +67,9 @@ public class RecipeControllerTest {
     @Test
     public void testPostNewRecipe() throws Exception {
         RecipeCommand command = new RecipeCommand();
-        command.setId(2l);
+        command.setId(2L);
 
-        when(recipeService.findRecipeCommand(anyLong())).thenReturn(command);
-
+        when(recipeService.saveRecipeCommand(any())).thenReturn(command);
 
         mockMvc.perform(post("/recipe")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -81,15 +80,16 @@ public class RecipeControllerTest {
                 .andExpect(view().name("redirect:/recipe/2/show"));
     }
 
+
     // test update page
     @Test
-    public void testUpdateNewRecipe() throws Exception {
+    public void testGetUpdateView() throws Exception {
         RecipeCommand command = new RecipeCommand();
-        command.setId(2l);
+        command.setId(2L);
 
         when(recipeService.findRecipeCommand(anyLong())).thenReturn(command);
 
-        mockMvc.perform(get("/recipe/2/update")) 
+        mockMvc.perform(get("/recipe/1/update"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/recipeform"))
                 .andExpect(model().attributeExists("recipe"));
@@ -97,8 +97,8 @@ public class RecipeControllerTest {
 
 
     @Test
-    public void testDeleteRecipe() throws Exception {
-        mockMvc.perform(get("recipe/1/delete"))
+    public void testDeleteAction() throws Exception {
+        mockMvc.perform(get("/recipe/1/delete"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
 
