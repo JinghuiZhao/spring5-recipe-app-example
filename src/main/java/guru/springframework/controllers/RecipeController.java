@@ -41,7 +41,7 @@ public class RecipeController {
         // service returns back a new implementation of the command
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
         log.debug("this recipe is ok");
-        return "redirect:/recipe/show/" + savedCommand.getId();
+        return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }
 
 
