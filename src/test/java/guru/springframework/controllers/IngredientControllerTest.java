@@ -2,6 +2,7 @@ package guru.springframework.controllers;
 
 import guru.springframework.commands.IngredientCommand;
 import guru.springframework.commands.RecipeCommand;
+import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.service.IngredientService;
 import guru.springframework.service.RecipeService;
 import guru.springframework.service.UnitOfMeasureService;
@@ -126,4 +127,28 @@ public class IngredientControllerTest {
 
     }
 
+
+
+    @Test
+    public void testNewIngredient() throws Exception {
+
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1l);
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(1l);
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        when(ingredientService.saveIngredient(any())).thenReturn(ingredientCommand);
+
+
+        //then
+        mockMvc.perform(get("/recipe/1/ingredient/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/ingredient/ingredientform"))
+                // note the ingredient template should be under recipe folder
+                .andExpect(model().attributeExists("ingredient"))
+                .andExpect(model().attributeExists("uomList")); // note here also expect uomlist
+
+
+    }
 }

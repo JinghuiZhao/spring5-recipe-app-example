@@ -81,9 +81,8 @@ public class IngredientServiceImpltest {
 
     }
 
-
     @Test
-    public void testSaveIngredientCommand() throws Exception{
+    public void testSaveRecipeCommand() throws Exception {
         //given
         IngredientCommand command = new IngredientCommand();
         command.setId(3L);
@@ -105,5 +104,11 @@ public class IngredientServiceImpltest {
         assertEquals(Long.valueOf(3L), savedCommand.getId());
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, times(1)).save(any(Recipe.class));
+
     }
+
+
+
+
+
 }
