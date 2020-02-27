@@ -148,7 +148,18 @@ public class IngredientControllerTest {
                 // note the ingredient template should be under recipe folder
                 .andExpect(model().attributeExists("ingredient"))
                 .andExpect(model().attributeExists("uomList")); // note here also expect uomlist
+    }
 
+
+    @Test
+    public void testDeleteIngredient() throws Exception {
+        mockMvc.perform(get("/recipe/1/ingredient/3/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/2/ingredients"));
+
+        verify(ingredientService, times(1)).deleteIngredient(anyLong(), anyLong());
 
     }
+
+
 }
