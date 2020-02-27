@@ -1,6 +1,7 @@
 package guru.springframework.controllers;
 
 import guru.springframework.commands.RecipeCommand;
+import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.service.ImageService;
 import guru.springframework.service.RecipeService;
 import org.junit.Before;
@@ -36,7 +37,7 @@ public class ImageControllerTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        controller = new ImageController(imageService, recipeService);
+        controller = new ImageController(recipeService, imageService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
@@ -102,5 +103,15 @@ public class ImageControllerTest {
         byte[] reponseBytes = response.getContentAsByteArray();
 
         assertEquals(s.getBytes().length, reponseBytes.length);
+    }
+
+    @Test
+    public void testGetRecipeNotFound() throws Exception {
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("404error"));
     }
 }

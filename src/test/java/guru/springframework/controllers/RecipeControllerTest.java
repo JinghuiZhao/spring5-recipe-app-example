@@ -104,4 +104,19 @@ public class RecipeControllerTest {
 
         verify(recipeService, times(1)).deleteById(anyLong());
     }
+
+
+    @Test
+    public void testGetRecipeNumberFormatException() throws Exception {
+
+        mockMvc.perform(get("/recipe/asdf/show"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("400error"));
+    }
+    
+
+
+
+
+
 }
