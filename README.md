@@ -1,7 +1,7 @@
-# Spring Boot Recipe Application
+Run mysql in docker:
+docker run --name  mysqldb -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -d mysql
 
-[![CircleCI](https://circleci.com/gh/springframeworkguru/spring5-recipe-app.svg?style=svg)](https://circleci.com/gh/springframeworkguru/spring5-recipe-app)
+Run maven with profile specified:
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
 
-This repository is for an example application built in my Spring Framework 5 - Beginner to Guru
-
-You can learn about my Spring Framework 5 Online course [here.](http://courses.springframework.guru/p/spring-framework-5-begginer-to-guru/?product_id=363173)
+load mysql bootstrap data to see the result in the sql client.
