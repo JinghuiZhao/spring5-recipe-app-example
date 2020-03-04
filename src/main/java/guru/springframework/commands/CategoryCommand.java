@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- Since the command entities are for each recipe, we don't need recipe property here
+ * Created by jt on 6/21/17.
  */
 @Setter
 @Getter
