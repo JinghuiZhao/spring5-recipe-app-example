@@ -1,6 +1,5 @@
 package guru.springframework.bootstrap;
 
-
 import guru.springframework.domain.*;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.RecipeRepository;
@@ -52,7 +51,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
     private List<Recipe> getRecipes() {
 
-        List<Recipe> recipes = new ArrayList<>(2);
+        List<Recipe> recipes = new ArrayList<>(3);
 
         //get UOMs
         Optional<UnitOfMeasure> eachUomOptional = unitOfMeasureRepository.findByDescription("Each");
@@ -66,6 +65,13 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         if(!tableSpoonUomOptional.isPresent()){
             throw new RuntimeException("Expected UOM Not Found");
         }
+
+        Optional<UnitOfMeasure> lbsUomOptional = unitOfMeasureRepository.findByDescription("lbs");
+
+        if(!lbsUomOptional.isPresent()){
+            throw new RuntimeException("Expected UOM Not Found");
+        }
+
 
         Optional<UnitOfMeasure> teaSpoonUomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
 
@@ -96,10 +102,11 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         //.get() to return the values of optionals
         UnitOfMeasure eachUom = eachUomOptional.get();
         UnitOfMeasure tableSpoonUom = tableSpoonUomOptional.get();
-        UnitOfMeasure teapoonUom = tableSpoonUomOptional.get();
+        UnitOfMeasure teapoonUom = teaSpoonUomOptional.get();
         UnitOfMeasure dashUom = dashUomOptional.get();
         UnitOfMeasure pintUom = pintUomOptional.get();
         UnitOfMeasure cupsUom = cupsUomOptional.get();
+        UnitOfMeasure lbsUom = lbsUomOptional.get();
 
 
         //get Categories
@@ -115,6 +122,14 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
             throw new RuntimeException("Expected Category Not Found");
         }
 
+
+        Optional<Category> asianCategoryOptional = categoryRepository.findByDescription("Asian");
+
+        if(!asianCategoryOptional.isPresent()){
+            throw new RuntimeException("Expected Category Not Found");
+        }
+
+        Category asianCategory = asianCategoryOptional.get();
         Category americanCategory = americanCategoryOptional.get();
         Category mexicanCategory = mexicanCategoryOptional.get();
 
@@ -123,7 +138,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacRecipe.setDescription("Perfect Guacamole");
         guacRecipe.setPrepTime(10);
         guacRecipe.setCookTime(0);
-        guacRecipe.setDifficulty(Difficulty.EASY);
+        guacRecipe.setDifficulty(Difficulty.Easy);
         guacRecipe.setDirections("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon" +
                 "\n" +
                 "2 Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)" +
@@ -143,10 +158,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacNotes.setRecipeNotes("For a very quick guacamole just take a 1/4 cup of salsa and mix it in with your mashed avocados.\n" +
                 "Feel free to experiment! One classic Mexican guacamole has pomegranate seeds and chunks of peaches in it (a Diana Kennedy favorite). Try guacamole with added pineapple, mango, or strawberries.\n" +
                 "The simplest version of guacamole is just mashed avocados with salt. Don't let the lack of availability of other ingredients stop you from making guacamole.\n" +
-                "To extend a limited supply of avocados, add either sour cream or cottage cheese to your guacamole dip. Purists may be horrified, but so what? It tastes great.\n" +
-                "\n" +
-                "\n" +
-                "Read more: http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvoun5ws");
+                "To extend a limited supply of avocados, add either sour cream or cottage cheese to your guacamole dip. Purists may be horrified, but so what? It tastes great.\n");
 
         // add the set in recipe object to set id for notes object
         // to make it bidirectional
@@ -163,7 +175,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         guacRecipe.getCategories().add(americanCategory);
         guacRecipe.getCategories().add(mexicanCategory);
-
+        guacRecipe.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
         //add to return list
         recipes.add(guacRecipe);
 
@@ -174,7 +186,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         tacosRecipe.setDescription("Spicy Grilled Chicken Taco");
         tacosRecipe.setCookTime(9);
         tacosRecipe.setPrepTime(20);
-        tacosRecipe.setDifficulty(Difficulty.MODERATE);
+        tacosRecipe.setDifficulty(Difficulty.Medium);
 
         tacosRecipe.setDirections("1 Prepare a gas or charcoal grill for medium-high, direct heat.\n" +
                 "2 Make the marinade and coat the chicken: In a large bowl, stir together the chili powder, oregano, cumin, sugar, salt, garlic and orange zest. Stir in the orange juice and olive oil to make a loose paste. Add the chicken to the bowl and toss to coat all over.\n" +
@@ -194,13 +206,12 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "Any and every kind of leftover can go inside a warm tortilla, usually with a healthy dose of pickled jalapenos. I can always sniff out a late-night snacker when the aroma of tortillas heating in a hot pan on the stove comes wafting through the house.\n" +
                 "Today’s tacos are more purposeful – a deliberate meal instead of a secretive midnight snack!\n" +
                 "First, I marinate the chicken briefly in a spicy paste of ancho chile powder, oregano, cumin, and sweet orange juice while the grill is heating. You can also use this time to prepare the taco toppings.\n" +
-                "Grill the chicken, then let it rest while you warm the tortillas. Now you are ready to assemble the tacos and dig in. The whole meal comes together in about 30 minutes!\n" +
-                "\n" +
-                "\n" +
-                "Read more: http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/#ixzz4jvu7Q0MJ");
+                "Grill the chicken, then let it rest while you warm the tortillas. Now you are ready to assemble the tacos and dig in. The whole meal comes together in about 30 minutes!\n");
 
         // Note that this is bidirectional
         tacosRecipe.setNotes(tacoNotes);
+        tacosRecipe.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
+
 
 
         tacosRecipe.addIngredients(new Ingredient("Ancho Chili Powder", new BigDecimal(2), tableSpoonUom));
@@ -229,6 +240,54 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         // note that we saved categories of the recipe we can add this recipes to the list
         recipes.add(tacosRecipe);
+
+
+
+        //Three Teacup Chicken Recipe
+        Recipe chickenRecipe = new Recipe();
+        chickenRecipe.setDescription("Three Teacup Chicken");
+        chickenRecipe.setCookTime(9);
+        chickenRecipe.setPrepTime(20);
+        chickenRecipe.setDifficulty(Difficulty.Medium);
+
+        chickenRecipe.setDirections("1 Make the braising liquid: In a bowl combine the soy sauce, rice vinegar, sugar, and Shaoxing wine together and mix well. Set aside.\n" +
+                "\n" +
+                "2 Sauté garlic, ginger, scallions, peppercorns: Heat a wok or large sauté pan on high heat until a drop of water will evaporate within 1-2 seconds. \n" +
+                "Place the oil in the wok and swirl. Add the garlic, ginger, scallions, and Sichuan peppercorns/chili pepper if using and stir-fry for 30 seconds or until fragrant.\n" +
+                "\n" +
+                "3 Add the chicken and stir-fry until no pink on the surface remains (you just want to sear the outside nicely).\n" +
+                "\n" +
+                "4 Add the braising liquid and star anise or anise seed if using and cook for 1 minute ensuring that the chicken is well coated in the braising liquid.\n" +
+                "\n" +
+                "5 Add the water and cover and cook for 4 more minutes or until the chicken is cooked through and no pink remains.\n" +
+                "\n" +
+                "6 Serve immediately over rice with hearty amounts of the broth. Garnish with a little extra chopped scallion.");
+
+
+        Notes chickenNotes = new Notes();
+        chickenNotes.setRecipeNotes("This recipe is a simple braised chicken dish called Three Teacup Chicken." +
+                " The name comes from the basic preparation in which a teacup is traditionally used to measure the three key " +
+                "ingredients of the braising liquid—sugar, soy sauce, and rice vinegar.");
+
+        // Note that this is bidirectional
+        chickenRecipe.setNotes(chickenNotes);
+
+        chickenRecipe.addIngredients(new Ingredient("soy sauce", new BigDecimal(0.25), cupsUom));
+        chickenRecipe.addIngredients(new Ingredient("rice vinegar", new BigDecimal(0.25), cupsUom));
+        chickenRecipe.addIngredients(new Ingredient("sugar", new BigDecimal(0.25), cupsUom));
+        chickenRecipe.addIngredients(new Ingredient("Shaoxing wine or dry sherry", new BigDecimal( 1), tableSpoonUom));
+        chickenRecipe.addIngredients(new Ingredient("sesame oil", new BigDecimal(1), tableSpoonUom));
+        chickenRecipe.addIngredients(new Ingredient("scallions", new BigDecimal(6), eachUom));
+        chickenRecipe.addIngredients(new Ingredient("chicken breast or thighs", new BigDecimal(6), lbsUom));
+
+        chickenRecipe.getCategories().add(asianCategory);
+
+        chickenRecipe.setUrl("https://www.simplyrecipes.com/recipes/three_teacup_chicken/");
+        chickenRecipe.setServings(4);
+        chickenRecipe.setSource("Simply Recipes");
+
+        recipes.add(chickenRecipe);
+
         return recipes;
     }
 }

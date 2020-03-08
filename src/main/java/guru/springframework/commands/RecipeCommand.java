@@ -1,10 +1,12 @@
 package guru.springframework.commands;
 
 import guru.springframework.domain.Difficulty;
+import guru.springframework.domain.Ingredient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +16,10 @@ import java.util.Set;
 @NoArgsConstructor
 public class RecipeCommand {
     private Long id;
+
+    @NotNull(message="recipe description cannot be empty")
     private String description;
+
     private Integer prepTime;
     private Integer cookTime;
     private Integer servings;
@@ -26,4 +31,5 @@ public class RecipeCommand {
     private NotesCommand notes;
     private Set<CategoryCommand> categories = new HashSet<>();
     private Byte[] image;
+
 }

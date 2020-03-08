@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +38,10 @@ public class ImageController {
 
     @PostMapping("recipe/{id}/image")
     public String handleImagePost(@PathVariable String id, @RequestParam("imagefile") MultipartFile file){
+        final long limit = 50 * 1024 * 1024;    // 50 MB
+        if (file.getSize() > limit) {
+            throw new MaxUploadSizeExceededException(limit);
+        }
         imageService.saveImageFile(Long.valueOf(id), file);
         return "redirect:/recipe/" + id + "/show";
     }

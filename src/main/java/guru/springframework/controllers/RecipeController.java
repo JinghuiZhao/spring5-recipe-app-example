@@ -1,15 +1,22 @@
 package guru.springframework.controllers;
 
 
+import guru.springframework.commands.IngredientCommand;
 import guru.springframework.commands.RecipeCommand;
+import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.service.RecipeService;
+import guru.springframework.service.UnitOfMeasureService;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.bridge.ICommand;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 
 @Slf4j
@@ -34,29 +41,41 @@ public class RecipeController {
     @GetMapping
     @RequestMapping("recipe/new")
     public String newRecipe(Model model){
-        model.addAttribute("recipe", new RecipeCommand());
+        RecipeCommand newRecipeCommand = new RecipeCommand();
+        model.addAttribute("recipe", newRecipeCommand);
         return "recipe/recipeform";
     }
 
-    // handle post request, @ModelAttribute tell spring to bind form post parameters to recipecommand object
+
+    // The @ModelAttribute is an annotation that binds a method parameter or method return value to a named model attribute and then exposes it to a web view.
+    // add binding error
     @PostMapping("recipe")
-    public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
-        // service returns back a new implementation of the command
+    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+
+            bindingResult.getAllErrors().forEach(objectError -> {
+                log.debug(objectError.toString());
+            });
+
+            return "recipe/recipeform";
+        }
+
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
-        log.debug("this recipe is ok");
+
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }
 
 
+
     @GetMapping
     @RequestMapping("recipe/{id}/update")
-    // we return the page same as creating newRecipe page
     public String updateRecipe(@PathVariable Long id, Model model) {
         model.addAttribute("recipe", recipeService.findRecipeCommand(Long.valueOf(id)));
         return "recipe/recipeform";
     }
 
-    @GetMapping // we only expect get method here
+
+    @GetMapping
     @RequestMapping("recipe/{id}/delete")
     public String deleteRecipe(@PathVariable Long id) {
         log.debug("deleting" + id);

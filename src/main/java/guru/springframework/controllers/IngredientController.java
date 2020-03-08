@@ -9,7 +9,10 @@ import guru.springframework.service.UnitOfMeasureService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @Slf4j
@@ -51,6 +54,9 @@ public class IngredientController {
         model.addAttribute("ingredient", ingredientService.findRecipeIdAndIngredientId(Long.valueOf(recipeId),
                 Long.valueOf(id)));
 
+        // add below since we have go back button
+        model.addAttribute("recipe", recipeService.findById(Long.valueOf(recipeId)));
+
         return "recipe/ingredient/show";  //ingredient/show is for a single ingredient
     }
 
@@ -62,15 +68,23 @@ public class IngredientController {
         model.addAttribute("ingredient", ingredientService.findRecipeIdAndIngredientId(Long.valueOf(recipeId),
                 Long.valueOf(id)));
         model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
-        return "recipe/ingredient/ingredientform";  //ingredient/show is for a single ingredient
+        return "recipe/ingredient/ingredientform";
     }
 
 
     @PostMapping("recipe/{recipeId}/ingredient")
-    public String saveOrUpdate(@ModelAttribute IngredientCommand command){
+    public String saveOrUpdate(@Valid @ModelAttribute("ingredient") IngredientCommand command, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+
+            bindingResult.getAllErrors().forEach(objectError -> {
+                log.debug(objectError.toString());
+            });
+
+            return "recipe/ingredient/ingredientform";
+        }
+
         IngredientCommand savedIngredientCommand = ingredientService.saveIngredient(command);
         log.debug("saved ingredient id:" + savedIngredientCommand.getId());
-
         return "redirect:/recipe/" + savedIngredientCommand.getRecipeId() + "/ingredient/" + savedIngredientCommand.getId() + "/show";
 
     }
@@ -81,11 +95,8 @@ public class IngredientController {
     public String addNewIngredient(@PathVariable String recipeId,
                                        Model model){
 
-        RecipeCommand recipeCommand =  recipeService.findRecipeCommand(Long.valueOf(recipeId));
-
-
         IngredientCommand ingredientCommand = new IngredientCommand();
-        ingredientCommand.setRecipeId(Long.valueOf(recipeId));  // note here is the recipeid passed in
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
         model.addAttribute("ingredient", ingredientCommand);
 
         ingredientCommand.setUom(new UnitOfMeasureCommand());
@@ -93,6 +104,7 @@ public class IngredientController {
 
         return "recipe/ingredient/ingredientform";
     }
+
 
 
     @GetMapping

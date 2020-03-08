@@ -1,5 +1,11 @@
-/Users/elainezhao/Desktop/spring5-recipe-app/src/test/java/guru/springframework/domain/CategoryTest.java
-/Users/elainezhao/Desktop/spring5-recipe-app/src/test/java/guru/springframework/repositories/UnitOfMeasureRepositoryIT.java
-/Users/elainezhao/Desktop/spring5-recipe-app/src/test/java/guru/springframework/service/RecipeServiceImplTest.java
-/Users/elainezhao/Desktop/spring5-recipe-app/src/test/java/guru/springframework/controllers/IndexControllerTest.java
-/Users/elainezhao/Desktop/spring5-recipe-app/src/test/java/guru/springframework/Spring5RecipeAppApplicationTests.java
+/Users/elainezhao/Desktop/Jinghui_github/spring5-recipe-app-example/src/test/java/guru/springframework/controllers/IndexControllerTest.java
+/Users/elainezhao/Desktop/Jinghui_github/spring5-recipe-app-example/src/test/java/guru/springframework/controllers/RecipeControllerTest.java
+/Users/elainezhao/Desktop/Jinghui_github/spring5-recipe-app-example/src/test/java/guru/springframework/domain/CategoryTest.java
+/Users/elainezhao/Desktop/Jinghui_github/spring5-recipe-app-example/src/test/java/guru/springframework/service/RecipeServiceImplTest.java
+/Users/elainezhao/Desktop/Jinghui_github/spring5-recipe-app-example/src/test/java/guru/springframework/controllers/IngredientControllerTest.java
+/Users/elainezhao/Desktop/Jinghui_github/spring5-recipe-app-example/src/test/java/guru/springframework/service/ImageServiceImplTest.java
+/Users/elainezhao/Desktop/Jinghui_github/spring5-recipe-app-example/src/test/java/guru/springframework/repositories/UnitOfMeasureRepositoryIT.java
+/Users/elainezhao/Desktop/Jinghui_github/spring5-recipe-app-example/src/test/java/guru/springframework/service/UnitOfMeasureServiceImplTest.java
+/Users/elainezhao/Desktop/Jinghui_github/spring5-recipe-app-example/src/test/java/guru/springframework/controllers/ImageControllerTest.java
+/Users/elainezhao/Desktop/Jinghui_github/spring5-recipe-app-example/src/test/java/guru/springframework/service/IngredientServiceImpltest.java
+/Users/elainezhao/Desktop/Jinghui_github/spring5-recipe-app-example/src/test/java/guru/springframework/Spring5RecipeAppApplicationTests.java
