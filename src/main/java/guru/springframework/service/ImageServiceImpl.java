@@ -3,8 +3,11 @@ package guru.springframework.service;
 import guru.springframework.domain.Recipe;
 import guru.springframework.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -45,4 +48,5 @@ public class ImageServiceImpl implements ImageService {
             e.printStackTrace();
         }
     }
+
 }

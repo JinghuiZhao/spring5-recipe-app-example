@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 
 @RunWith(SpringRunner.class)
-@DataJpaTest // this is oing to configure JPA for us
+@DataJpaTest // this is going to configure JPA for us
 public class UnitOfMeasureRepositoryIT {
 
     @Autowired
@@ -37,8 +37,8 @@ public class UnitOfMeasureRepositoryIT {
     public void findByDescriptionCup() throws Exception {
         // in this one, springcontext won't be reloaded, thus we need @DirtiesContext to make context restart thus to avoid
         // one test contaminate another
-        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Cup");
-        assertEquals("Cup", uomOptional.get().getDescription());
+        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("lbs");
+        assertEquals("lbs", uomOptional.get().getDescription());
     }
 
 
